@@ -2,6 +2,7 @@
 {
     internal sealed class BatchInfo
     {
+        public string Id { get; set; }
         public string ProcDate { get; set; }
         public string IssBk { get; set; }
         public string IssBr { get; set; }

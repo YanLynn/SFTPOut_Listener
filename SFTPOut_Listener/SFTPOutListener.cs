@@ -93,28 +93,41 @@ namespace SFTPOut_Listener
         {
             try
             {
+                // Every part of the file name comes from the DB row, so make sure none is NULL
+                if (string.IsNullOrEmpty(b.ProcDate) || string.IsNullOrEmpty(b.IssBk) ||
+                    string.IsNullOrEmpty(b.IssBr) || string.IsNullOrEmpty(b.Batch) ||
+                    string.IsNullOrEmpty(b.TranType) || string.IsNullOrEmpty(b.Sequence))
+                {
+                    Fail(b, "Incomplete batch row, ID=" + b.Id);
+                    return;
+                }
+
                 BankElement bank = _banks.Get(b.IssBk);
                 if (bank == null) { Fail(b, "No bank config for IssBk=" + b.IssBk); return; }
 
+                // The PGP file parked by PGPOut_Listener must match the DB row
                 string dir = Path.Combine(_cfg.SourceRoot, b.ProcDate);
                 string pgp = Path.Combine(dir, b.FileName);
                 string sgl = Path.Combine(dir, b.SglFileName);
 
                 if (!File.Exists(pgp)) { Fail(b, "PGP file not found: " + pgp); return; }
 
-                // Create an empty signal file if the PGP server did not create one
-                if (!File.Exists(sgl)) File.Create(sgl).Dispose();
-
                 ITransferClient client = TransferClientFactory.Create(bank, _cfg.TransferTimeoutMs);
 
-                // Send the PGP file first and the SGL last:
-                // the bank picks a file up only after it sees the SGL.
+                // Step 1: send the PGP file
                 if (!client.Send(pgp, b.FileName, bank)) { Fail(b, "PGP upload failed: " + b.FileName); return; }
+                Logger.Instance.Info("PGP file sent to " + bank.Name + ": " + b.FileName);
+
+                // Step 2: build the SGL by copying the PGP file and adding the .SGL extension.
+                // It is created only after the PGP upload succeeded; overwrite if a previous attempt left one.
+                File.Copy(pgp, sgl, true);
+
+                // Step 3: send the SGL last (the bank picks the file up when it sees the SGL)
                 if (!client.Send(sgl, b.SglFileName, bank)) { Fail(b, "SGL upload failed: " + b.SglFileName); return; }
+                Logger.Instance.Info("SGL file sent to " + bank.Name + ": " + b.SglFileName);
 
+                // Step 4: both files are at the bank, so update the status
                 _dao.SetStatus(b, _cfg.StatusSuccess);
-                Logger.Instance.Info("Sent " + b.FileName + " to " + bank.Name);
-
                 MoveToSent(dir, b);
             }
             catch (Exception ex)
