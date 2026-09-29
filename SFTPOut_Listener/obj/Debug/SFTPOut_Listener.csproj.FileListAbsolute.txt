@@ -1,0 +1,16 @@
+D:\CTSLite\SFTPOut_Listener\SFTPOut_Listener\bin\Debug\SFTPOut_Listener.exe.config
+D:\CTSLite\SFTPOut_Listener\SFTPOut_Listener\bin\Debug\SFTPOut_Listener.exe
+D:\CTSLite\SFTPOut_Listener\SFTPOut_Listener\bin\Debug\SFTPOut_Listener.pdb
+D:\CTSLite\SFTPOut_Listener\SFTPOut_Listener\bin\Debug\BCSIS.Common.FileHandling.dll
+D:\CTSLite\SFTPOut_Listener\SFTPOut_Listener\bin\Debug\BCSIS.Common.Log.dll
+D:\CTSLite\SFTPOut_Listener\SFTPOut_Listener\bin\Debug\log4net.dll
+D:\CTSLite\SFTPOut_Listener\SFTPOut_Listener\bin\Debug\BCSIS.Common.DBAccess.dll
+D:\CTSLite\SFTPOut_Listener\SFTPOut_Listener\bin\Debug\log4net.pdb
+D:\CTSLite\SFTPOut_Listener\SFTPOut_Listener\bin\Debug\log4net.xml
+D:\CTSLite\SFTPOut_Listener\SFTPOut_Listener\obj\Debug\SFTPOut_Listener.csproj.AssemblyReference.cache
+D:\CTSLite\SFTPOut_Listener\SFTPOut_Listener\obj\Debug\SFTPOut_Listener.ProjectInstaller.resources
+D:\CTSLite\SFTPOut_Listener\SFTPOut_Listener\obj\Debug\SFTPOut_Listener.csproj.GenerateResource.cache
+D:\CTSLite\SFTPOut_Listener\SFTPOut_Listener\obj\Debug\SFTPOut_Listener.csproj.CoreCompileInputs.cache
+D:\CTSLite\SFTPOut_Listener\SFTPOut_Listener\obj\Debug\SFTPOut_.EBE19755.Up2Date
+D:\CTSLite\SFTPOut_Listener\SFTPOut_Listener\obj\Debug\SFTPOut_Listener.exe
+D:\CTSLite\SFTPOut_Listener\SFTPOut_Listener\obj\Debug\SFTPOut_Listener.pdb
